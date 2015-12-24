@@ -3,9 +3,8 @@
 // Definitions by: Niels Kristian Hansen Skovmand, https://github.com/skovmand
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module SpotifyApi {
 
-declare module SpotifyWebApiTypings {
-    
     // 
     // Parameter Objects for searching
     //
