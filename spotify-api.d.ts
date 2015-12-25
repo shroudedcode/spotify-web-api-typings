@@ -1,7 +1,14 @@
 // Type definitions for The Spotify Web API v1.0
 // Project: https://developer.spotify.com/web-api/
-// Definitions by: Niels Kristian Hansen Skovmand, https://github.com/skovmand
+// Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Release comments:
+// -----------------
+// TrackObjects and AlbumObjects is specified in the docs as always having the available_markets property, 
+// but when it is sent in https://developer.spotify.com/web-api/console/get-current-user-saved-tracks
+// the available_markets are missing. Therefore it is marked as optional in this source code.
+
 
 declare module SpotifyApi {
 
@@ -54,269 +61,310 @@ declare module SpotifyApi {
     // Spotify API Endpoints:
 
     /**
-     * Get an Album   /v1/albums/{id}
+     * Get an Album   
+     * GET /v1/albums/{id}
      */
     interface SingleAlbumResponse extends AlbumObjectFull {}
 
     /**
-     * Get Several Albums   /v1/albums
+     * Get Several Albums   
+     * GET /v1/albums
      */
     interface MultipleAlbumsResponse {
         albums: AlbumObjectFull[]
     }
 
     /**
-     * Get an Album’s Tracks   /v1/albums/{id}/tracks
+     * Get an Album’s Tracks   
+     * GET /v1/albums/{id}/tracks
      */
     interface AlbumTracksResponse extends PagingObject<TrackObjectSimplified> {}
 
     /**
-     * Get an Artist   /v1/artists/{id}
+     * Get an Artist   
+     * GET /v1/artists/{id}
      */
     interface SingleArtistResponse extends ArtistObjectFull {}
 
     /**
-     * Get Several Artists   /v1/artists
+     * Get Several Artists   
+     * GET /v1/artists
      */
     interface MultipleArtistsResponse {
         artists: ArtistObjectFull[]
     }
 
     /**
-     * Get an Artist’s Albums   /v1/artists/{id}/albums
+     * Get an Artist’s Albums   
+     * GET /v1/artists/{id}/albums
      */
     interface ArtistsAlbumsResponse extends PagingObject<AlbumObjectSimplified> {}
 
     /**
-     * Get an Artist’s Top Tracks   /v1/artists/{id}/top-tracks
+     * Get an Artist’s Top Tracks   
+     * GET /v1/artists/{id}/top-tracks
      */
     interface ArtistsTopTracksResponse {
         tracks: TrackObjectFull[]
     }
 
     /**
-     * Get an Artist’s Related Artists   /v1/artists/{id}/related-artists
+     * Get an Artist’s Related Artists   
+     * GET /v1/artists/{id}/related-artists
      */
     interface ArtistsRelatedArtistsResponse {
-        artists: PagingObject<ArtistObjectFull>
+        artists: ArtistObjectFull[]
     }
 
     /**
-     * Get a list of featured playlists   /v1/browse/featured-playlists
+     * Get a list of featured playlists   
+     * GET /v1/browse/featured-playlists
      */
     interface ListOfFeaturedPlaylistsResponse {
-        message: string,
+        message?: string,
         playlists: PagingObject<PlaylistObjectSimplified>
     } 
 
     /**
-     * Get a list of new releases   /v1/browse/new-releases
+     * Get a list of new releases   
+     * GET /v1/browse/new-releases
      */
     interface ListOfNewReleasesResponse {
-        message: string,
+        message?: string,
         albums: PagingObject<AlbumObjectSimplified>
     }
 
     /**
-     * Get a list of categories   /v1/browse/categories
+     * Get a list of categories   
+     * GET /v1/browse/categories
      */
     interface MultipleCategoriesResponse {
         categories: PagingObject<CategoryObject>
     }
 
     /**
-     * Get a category   /v1/browse/categories/{category_id}
+     * Get a category   
+     * GET /v1/browse/categories/{category_id}
      */
     interface SingleCategoryResponse extends CategoryObject {}
 
     /**
-     * Get a categorys playlists   /v1/browse/categories/{id}/playlists
+     * Get a categorys playlists   
+     * GET /v1/browse/categories/{id}/playlists
      */
     interface CategoryPlaylistsReponse {
         playlists: PagingObject<PlaylistObjectSimplified>
     }
 
     /**
-     * Get Current User’s Profile   /v1/me
+     * Get Current User’s Profile   
+     * GET /v1/me
      */
     interface CurrentUsersProfileResponse extends UserObjectPrivate {}
 
     /**
-     * Get User’s Followed Artists   /v1/me/following?type=artist
+     * Get User’s Followed Artists   
+     * GET /v1/me/following?type=artist
      */
     interface UsersFollowedArtistsResponse {
-        artists: PagingObject<ArtistObjectFull>
+        artists: CursorBasedPagingObject<ArtistObjectFull>
     }
 
     /**
-     * Follow artists or users   /v1/me/following
+     * Follow artists or users   
+     * PUT /v1/me/following
      */
     interface FollowArtistsOrUsersResponse extends VoidResponse {}
 
     /**
-     * Unfollow artists or users   /v1/me/following
+     * Unfollow artists or users   
+     * DELETE /v1/me/following
      */
     interface UnfollowArtistsOrUsersResponse extends VoidResponse {}
 
     /**
-     * Check if User Follows Users or Artists   /v1/me/following/contains
-     * It's an array of booleans
+     * Check if User Follows Users or Artists
+     * GET /v1/me/following/contains
      */
-    interface UserFollowsUsersOrArtistsResponse {}
+    interface UserFollowsUsersOrArtistsResponse extends Array<boolean> {}
 
     /**
-     * Follow a Playlist   /v1/users/{owner_id}/playlists/{playlist_id}/followers
+     * Follow a Playlist
+     * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
      */
-    interface FollowAPlaylistReponse extends VoidResponse {}
+    interface FollowPlaylistReponse extends VoidResponse {}
 
     /**
-     * Unfollow a Playlist   /v1/users/{owner_id}/playlists/{playlist_id}/followers
+     * Unfollow a Playlist
+     * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
      */
     interface UnfollowPlaylistReponse extends VoidResponse {}
 
     /**
-     * Save tracks for user   /v1/me/tracks?ids={ids}
+     * Save tracks for user
+     * PUT /v1/me/tracks?ids={ids}
      */
     interface SaveTracksForUserResponse extends VoidResponse {}
 
     /**
-     * Get user's saved tracks   /v1/me/tracks
+     * Get user's saved tracks   
+     * GET /v1/me/tracks
      */
     interface UsersSavedTracksResponse extends PagingObject<SavedTrackObject> {}
 
     /**
-     * Remove User’s Saved Tracks   /v1/me/tracks?ids={ids}
+     * Remove User’s Saved Tracks
+     * DELETE /v1/me/tracks?ids={ids}
      */
     interface RemoveUsersSavedTracksResponse extends VoidResponse {}
 
     /**
-     * Check User’s Saved Tracks    /v1/me/tracks/contains
-     * It's an array of booleans....
+     * Check User’s Saved Tracks    
+     * GET /v1/me/tracks/contains
      */
-    interface CheckUsersSavedTracksResponse {}
-
+    interface CheckUsersSavedTracksResponse extends Array<boolean> {}
+    
     /**
-     * Save albums for user   /v1/me/albums?ids={ids}
+     * Save albums for user   
+     * PUT /v1/me/albums?ids={ids}
      */
     interface SaveAlbumsForUserResponse extends VoidResponse {}
 
     /**
-     * Get user's saved albums   /v1/me/albums
+     * Get user's saved albums   
+     * GET /v1/me/albums
      */
     interface UsersSavedAlbumsResponse extends PagingObject<AlbumObjectFull> {}
 
     /**
-     * Remove Albums for Current User   /v1/me/albums?ids={ids}
+     * Remove Albums for Current User   
+     * DELETE /v1/me/albums?ids={ids}
      */
-    interface RemoveAlbumsForCurrentUserResponse extends VoidResponse {}
+    interface RemoveAlbumsForUserResponse extends VoidResponse {}
 
     /**
-     * Check user's saved albums   /v1/me/albums/contains?ids={ids}
-     * It's an array of booleans....
+     * Check user's saved albums   
+     * DELETE /v1/me/albums/contains?ids={ids}
      */
-    interface CheckUserSavedAlbumsResponse {}
-
+    interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
+    
     /**
-     * Search for an album   /v1/search?type=album
+     * Search for an album   
+     * GET /v1/search?type=album
      */
     interface AlbumSearchResponse {
         albums: PagingObject<AlbumObjectSimplified>
     }
 
     /**
-     * Search for an artist   /v1/search?type=artist
+     * Search for an artist   
+     * GET /v1/search?type=artist
      */
     interface ArtistSearchResponse {
         artists: PagingObject<ArtistObjectFull>
     }
 
     /**
-     * Search for a playlist   /v1/search?type=playlist
+     * Search for a playlist   
+     * GET /v1/search?type=playlist
      */
     interface PlaylistSearchResponse {
         playlists: PagingObject<PlaylistObjectSimplified>
     }
 
     /**
-     * Search for a track   /v1/search?type=track
+     * Search for a track   
+     * GET /v1/search?type=track
      */
     interface TrackSearchResponse {
         tracks: PagingObject<TrackObjectFull>
     }
 
     /**
-     * Get a track   /v1/tracks/{id}
+     * Get a track   
+     * GET /v1/tracks/{id}
      */
     interface SingleTrackResponse extends TrackObjectFull {}
 
     /**
-     * Get multiple tracks   /v1/tracks?ids={ids}
+     * Get multiple tracks   
+     * GET /v1/tracks?ids={ids}
      */
     interface MultipleTracksResponse {
         tracks: TrackObjectFull[]
     }
 
     /**
-     * Get user profile   /v1/users/{user_id} 
+     * Get user profile   
+     * GET /v1/users/{user_id} 
      */
     interface UserProfileResponse extends UserObjectPublic {}
 
     /**
-     * Get a list of a user's playlists   /v1/users/{user_id}/playlists
+     * Get a list of a user's playlists   
+     * GET /v1/users/{user_id}/playlists
      */
     interface ListOfUsersPlaylistsResponse extends PagingObject<PlaylistObjectSimplified> {}
 
     /**
-     * Get a list of a user's playlists   /v1/users/{user_id}/playlists
+     * Get a list of the current user's playlists
+     * GET /v1/me/playlists
      */
     interface ListOfCurrentUsersPlaylistsResponse extends PagingObject<PlaylistObjectSimplified> {}
 
     /**
-     * Get a playlist   	/v1/users/{user_id}/playlists/{playlist_id}
+     * Get a playlist   	
+     * GET /v1/users/{user_id}/playlists/{playlist_id}
      */
     interface SinglePlaylistResponse extends PlaylistObjectFull {}
 
     /**
-     * Get a playlist's tracks   /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * Get a playlist's tracks   
+     * GET /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface PlaylistTrackResponse extends PagingObject<PlaylistTrackObject> {}
 
     /**
-     * Create a Playlist   /v1/users/{user_id}/playlists
+     * Create a Playlist   
+     * POST /v1/users/{user_id}/playlists
      */
-    interface CreateAPlaylistResponse extends PlaylistObjectFull {}
+    interface CreatePlaylistResponse extends PlaylistObjectFull {}
 
     /**
-     * Change a Playlist’s Details   /v1/users/{user_id}/playlists/{playlist_id}
+     * Change a Playlist’s Details   
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}
      */
     interface ChangePlaylistDetailsReponse extends VoidResponse {}
 
     /**
-     * Add Tracks to a Playlist   /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * Add Tracks to a Playlist   
+     * POST /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface AddTracksToPlaylistResponse extends PlaylistSnapshotResponse {}
 
     /**
-     * Remove Tracks from a Playlist   /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * Remove Tracks from a Playlist   
+     * DELETE /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface RemoveTracksFromPlaylistResponse extends PlaylistSnapshotResponse {}
 
     /**
-     * Reorder a Playlist’s Tracks   /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * Reorder a Playlist’s Tracks   
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface ReorderPlaylistTracksResponse extends PlaylistSnapshotResponse {}
 
     /**
-     * Replace a Playlist’s Tracks   /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * Replace a Playlist’s Tracks   
+     * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
      */
     interface ReplacePlaylistTracksResponse extends VoidResponse {}
 
     /**
-     * Check if Users Follow a Playlist   /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
-     * 
-     * It's just an array of booleans... Hmm.. How to describe?
+     * Check if Users Follow a Playlist   
+     * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
      */
-    interface UsersFollowPlaylistReponse {}
+    interface UsersFollowPlaylistReponse extends Array<boolean> {}
 
 
 
@@ -338,7 +386,6 @@ declare module SpotifyApi {
         items: T[],
         limit: number,
         next: string,
-        offset: number,
         total: number
     }
 
@@ -348,6 +395,7 @@ declare module SpotifyApi {
      */
     interface PagingObject<T> extends BasePagingObject<T> {
         previous: string,
+        offset: number
     }
 
     /**
@@ -385,7 +433,7 @@ declare module SpotifyApi {
      */
     interface AlbumObjectSimplified {
         album_type: string,
-        available_markets: string[],
+        available_markets?: string[],
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
@@ -581,7 +629,7 @@ declare module SpotifyApi {
      */
     interface TrackObjectSimplified {
         artists: ArtistObjectSimplified[],
-        available_markets: string[],
+        available_markets?: string[],
         disc_number: number,
         duration_ms: number,
         explicit: boolean,
