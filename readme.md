@@ -17,14 +17,15 @@ Still to be done:
 
 To install it either download the spotify-api.d.ts file to your repository or **preferably** use tsd:
 
-Obtain tsd from [definitelytyped.org](http://definitelytyped.org/tsd/), install it and run:
+Obtain tsd from [definitelytyped.org](http://definitelytyped.org/tsd/), install it and run this command from the root of your site.
 
 ```tsd install spotify-api```
 
 Then in your project, reference the file in the top of your ```.ts```:
 
-```/// <reference path="../spotify-api/spotify-api.d.ts" />```
+```/// <reference path="../typings/spotify-api/spotify-api.d.ts" />```
 
+(or what the path to the file is from your project...)
 
 ## Tests
 
