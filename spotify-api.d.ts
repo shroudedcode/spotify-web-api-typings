@@ -1,10 +1,13 @@
-// Type definitions for The Spotify Web API (including changes March 29th 2016)
+// Type definitions for The Spotify Web API (including changes March 29th 2016). Type versions October 17 2016.
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Release comments:
 // -----------------
+
+// The audio analysis object is not yet in the Object Model at Spotify, therefore it is typed as any in this file.
+
 // TrackObjects and AlbumObjects is specified in the docs as always having the available_markets property,
 // but when it is sent in https://developer.spotify.com/web-api/console/get-current-user-saved-tracks
 // the available_markets are missing. Therefore it is marked as optional in this source code.
@@ -62,13 +65,17 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Album
+     * 
      * GET /v1/albums/{id}
+     * https://developer.spotify.com/web-api/get-album/
      */
     interface SingleAlbumResponse extends AlbumObjectFull {}
 
     /**
      * Get Several Albums
-     * GET /v1/albums
+     * 
+     * GET /v1/albums?ids={ids}
+     * https://developer.spotify.com/web-api/get-several-albums/ 
      */
     interface MultipleAlbumsResponse {
         albums: AlbumObjectFull[]
@@ -76,19 +83,25 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Album’s Tracks
+     * 
      * GET /v1/albums/{id}/tracks
+     * https://developer.spotify.com/web-api/get-albums-tracks/
      */
     interface AlbumTracksResponse extends PagingObject<TrackObjectSimplified> {}
 
     /**
      * Get an Artist
+     * 
      * GET /v1/artists/{id}
+     * https://developer.spotify.com/web-api/get-artist/
      */
     interface SingleArtistResponse extends ArtistObjectFull {}
 
     /**
      * Get Several Artists
-     * GET /v1/artists
+     * 
+     * /v1/artists?ids={ids} 
+     * https://developer.spotify.com/web-api/get-several-artists/
      */
     interface MultipleArtistsResponse {
         artists: ArtistObjectFull[]
@@ -96,13 +109,17 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Artist’s Albums
+     * 
      * GET /v1/artists/{id}/albums
+     * https://developer.spotify.com/web-api/get-artists-albums/
      */
     interface ArtistsAlbumsResponse extends PagingObject<AlbumObjectSimplified> {}
 
     /**
      * Get an Artist’s Top Tracks
+     * 
      * GET /v1/artists/{id}/top-tracks
+     * https://developer.spotify.com/web-api/get-artists-top-tracks/
      */
     interface ArtistsTopTracksResponse {
         tracks: TrackObjectFull[]
@@ -110,21 +127,38 @@ declare namespace SpotifyApi {
 
     /**
      * Get an Artist’s Related Artists
+     * 
      * GET /v1/artists/{id}/related-artists
+     * https://developer.spotify.com/web-api/get-related-artists/
      */
     interface ArtistsRelatedArtistsResponse {
         artists: ArtistObjectFull[]
     }
 
     /**
+     * Get Audio Analysis for a Track
+     * 
+     * GET /v1/audio-analysis/{id}
+     * https://developer.spotify.com/web-api/get-audio-analysis/
+     * 
+     * At the time of typing, the Audio Analysis Object is absent from the Object Model, so it is typed as any.
+     * Object Model: https://developer.spotify.com/web-api/object-model/
+     */
+    interface AudioAnalysisResponse extends Object {}
+
+    /**
      * Get audio features for a track
+     * 
      * GET /v1/audio-features/{id}
+     * https://developer.spotify.com/web-api/get-audio-features/
      */
     interface AudioFeaturesResponse extends AudioFeaturesObject {}
 
     /**
      * Get audio features for several tracks
-     * GET /v1/audio-features
+     * 
+     * GET /v1/audio-features?ids={ids}
+     * https://developer.spotify.com/get-several-audio-features/
      */
     interface MultipleAudioFeaturesResponse {
         "audio_features": AudioFeaturesObject[]
@@ -132,7 +166,9 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of featured playlists
+     * 
      * GET /v1/browse/featured-playlists
+     * https://developer.spotify.com/web-api/get-list-featured-playlists/
      */
     interface ListOfFeaturedPlaylistsResponse {
         message?: string,
@@ -141,7 +177,9 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of new releases
+     * 
      * GET /v1/browse/new-releases
+     * https://developer.spotify.com/web-api/get-list-new-releases/
      */
     interface ListOfNewReleasesResponse {
         message?: string,
@@ -150,7 +188,9 @@ declare namespace SpotifyApi {
 
     /**
      * Get a list of categories
+     * 
      * GET /v1/browse/categories
+     * https://developer.spotify.com/web-api/get-list-categories/
      */
     interface MultipleCategoriesResponse {
         categories: PagingObject<CategoryObject>
@@ -158,13 +198,17 @@ declare namespace SpotifyApi {
 
     /**
      * Get a category
-     * GET /v1/browse/categories/{category_id}
+     * 
+     * GET /v1/browse/categories/{id}
+     * https://developer.spotify.com/web-api/get-category/
      */
     interface SingleCategoryResponse extends CategoryObject {}
 
     /**
      * Get a categorys playlists
+     * 
      * GET /v1/browse/categories/{id}/playlists
+     * https://developer.spotify.com/web-api/get-categorys-playlists/
      */
     interface CategoryPlaylistsReponse {
         playlists: PagingObject<PlaylistObjectSimplified>
@@ -172,13 +216,17 @@ declare namespace SpotifyApi {
 
     /**
      * Get Current User’s Profile
+     * 
      * GET /v1/me
+     * https://developer.spotify.com/web-api/get-current-users-profile/
      */
     interface CurrentUsersProfileResponse extends UserObjectPrivate {}
 
     /**
      * Get User’s Followed Artists
-     * GET /v1/me/following?type=artist
+     * 
+     * GET /v1/me/following
+     * https://developer.spotify.com/web-api/get-followed-artists/
      */
     interface UsersFollowedArtistsResponse {
         artists: CursorBasedPagingObject<ArtistObjectFull>
@@ -186,103 +234,137 @@ declare namespace SpotifyApi {
 
     /**
      * Follow artists or users
+     * 
      * PUT /v1/me/following
+     * https://developer.spotify.com/web-api/follow-artists-users/
      */
     interface FollowArtistsOrUsersResponse extends VoidResponse {}
 
     /**
      * Unfollow artists or users
+     * 
      * DELETE /v1/me/following
+     * https://developer.spotify.com/web-api/unfollow-artists-users/
      */
     interface UnfollowArtistsOrUsersResponse extends VoidResponse {}
 
     /**
      * Check if User Follows Users or Artists
+     * 
      * GET /v1/me/following/contains
+     * https://developer.spotify.com/web-api/check-current-user-follows/
      */
     interface UserFollowsUsersOrArtistsResponse extends Array<boolean> {}
 
     /**
      * Follow a Playlist
+     * 
      * PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers
+     * https://developer.spotify.com/web-api/follow-playlist/
      */
     interface FollowPlaylistReponse extends VoidResponse {}
 
     /**
      * Unfollow a Playlist
+     * 
      * DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers
+     * https://developer.spotify.com/web-api/unfollow-playlist/
      */
     interface UnfollowPlaylistReponse extends VoidResponse {}
 
     /**
      * Save tracks for user
+     * 
      * PUT /v1/me/tracks?ids={ids}
+     * https://developer.spotify.com/web-api/save-tracks-user/
      */
     interface SaveTracksForUserResponse extends VoidResponse {}
 
     /**
      * Get user's saved tracks
+     * 
      * GET /v1/me/tracks
+     * https://developer.spotify.com/web-api/get-users-saved-tracks/
      */
     interface UsersSavedTracksResponse extends PagingObject<SavedTrackObject> {}
 
     /**
      * Remove User’s Saved Tracks
+     * 
      * DELETE /v1/me/tracks?ids={ids}
+     * https://developer.spotify.com/web-api/remove-tracks-user/
      */
     interface RemoveUsersSavedTracksResponse extends VoidResponse {}
 
     /**
      * Check User’s Saved Tracks
-     * GET /v1/me/tracks/contains
+     * 
+     * GET /v1/me/tracks/contains?ids={ids}
+     * https://developer.spotify.com/web-api/check-users-saved-tracks/
      */
     interface CheckUsersSavedTracksResponse extends Array<boolean> {}
 
     /**
      * Save albums for user
+     * 
      * PUT /v1/me/albums?ids={ids}
+     * https://developer.spotify.com/web-api/save-albums-user/
      */
     interface SaveAlbumsForUserResponse extends VoidResponse {}
 
     /**
      * Get user's saved albums
+     * 
      * GET /v1/me/albums
+     * https://developer.spotify.com/web-api/get-users-saved-albums/
      */
-    interface UsersSavedAlbumsResponse extends PagingObject<AlbumObjectFull> {}
+    interface UsersSavedAlbumsResponse extends PagingObject<SavedAlbumObject> {}
 
     /**
      * Remove Albums for Current User
+     * 
      * DELETE /v1/me/albums?ids={ids}
+     * https://developer.spotify.com/web-api/remove-albums-user/
      */
     interface RemoveAlbumsForUserResponse extends VoidResponse {}
 
     /**
      * Check user's saved albums
-     * DELETE /v1/me/albums/contains?ids={ids}
+     * 
+     * GET /v1/me/albums/contains?ids={ids}
+     * https://developer.spotify.com/web-api/check-users-saved-albums/
      */
     interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
 
     /**
-     * Get a User’s Top Artists and Tracks
+     * Get a User’s Top Artists and Tracks (Note: This is only Artists)
+     * 
      * GET /v1/me/top/{type}
-     */
-    interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
-
-    /**
-     * Get a User’s Top Artists and Tracks
-     * GET /v1/me/top/{type}
+     * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
      */
     interface UsersTopArtistsResponse extends PagingObject<ArtistObjectFull> {}
 
     /**
+     * Get a User’s Top Artists and Tracks (Note: This is only Tracks)
+     * 
+     * GET /v1/me/top/{type}
+     * https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+     */
+    interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
+
+    /**
      * Get recommendations based on seeds
+     * 
      * GET /v1/recommendations
+     * https://developer.spotify.com/get-recommendations/
      */
     interface RecommendationsFromSeedsResponse extends RecommendationsObject {}
 
     /**
      * Search for an album
+     * 
      * GET /v1/search?type=album
+     * https://developer.spotify.com/web-api/search-item/
      */
     interface AlbumSearchResponse {
         albums: PagingObject<AlbumObjectSimplified>
@@ -290,7 +372,9 @@ declare namespace SpotifyApi {
 
     /**
      * Search for an artist
+     * 
      * GET /v1/search?type=artist
+     * https://developer.spotify.com/web-api/search-item/
      */
     interface ArtistSearchResponse {
         artists: PagingObject<ArtistObjectFull>
@@ -298,7 +382,9 @@ declare namespace SpotifyApi {
 
     /**
      * Search for a playlist
+     * 
      * GET /v1/search?type=playlist
+     * https://developer.spotify.com/web-api/search-item/
      */
     interface PlaylistSearchResponse {
         playlists: PagingObject<PlaylistObjectSimplified>
@@ -306,7 +392,9 @@ declare namespace SpotifyApi {
 
     /**
      * Search for a track
+     * 
      * GET /v1/search?type=track
+     * https://developer.spotify.com/web-api/search-item/
      */
     interface TrackSearchResponse {
         tracks: PagingObject<TrackObjectFull>
@@ -314,13 +402,17 @@ declare namespace SpotifyApi {
 
     /**
      * Get a track
+     * 
      * GET /v1/tracks/{id}
+     * https://developer.spotify.com/web-api/get-track/
      */
     interface SingleTrackResponse extends TrackObjectFull {}
 
     /**
      * Get multiple tracks
+     * 
      * GET /v1/tracks?ids={ids}
+     * https://developer.spotify.com/web-api/get-several-tracks/
      */
     interface MultipleTracksResponse {
         tracks: TrackObjectFull[]
@@ -328,73 +420,97 @@ declare namespace SpotifyApi {
 
     /**
      * Get user profile
+     * 
      * GET /v1/users/{user_id}
+     * https://developer.spotify.com/web-api/get-users-profile/
      */
     interface UserProfileResponse extends UserObjectPublic {}
 
     /**
      * Get a list of a user's playlists
+     * 
      * GET /v1/users/{user_id}/playlists
+     * https://developer.spotify.com/web-api/get-list-users-playlists/
      */
     interface ListOfUsersPlaylistsResponse extends PagingObject<PlaylistObjectSimplified> {}
 
     /**
      * Get a list of the current user's playlists
+     * 
      * GET /v1/me/playlists
+     * https://developer.spotify.com/web-api/get-list-users-playlists/
      */
     interface ListOfCurrentUsersPlaylistsResponse extends PagingObject<PlaylistObjectSimplified> {}
 
     /**
      * Get a playlist
+     * 
      * GET /v1/users/{user_id}/playlists/{playlist_id}
+     * https://developer.spotify.com/web-api/get-playlist/
      */
     interface SinglePlaylistResponse extends PlaylistObjectFull {}
 
     /**
      * Get a playlist's tracks
+     * 
      * GET /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * https://developer.spotify.com/web-api/get-playlists-tracks/
      */
     interface PlaylistTrackResponse extends PagingObject<PlaylistTrackObject> {}
 
     /**
      * Create a Playlist
+     * 
      * POST /v1/users/{user_id}/playlists
+     * https://developer.spotify.com/web-api/create-playlist/
      */
     interface CreatePlaylistResponse extends PlaylistObjectFull {}
 
     /**
      * Change a Playlist’s Details
+     * 
      * PUT /v1/users/{user_id}/playlists/{playlist_id}
+     * https://developer.spotify.com/web-api/change-playlist-details/
      */
     interface ChangePlaylistDetailsReponse extends VoidResponse {}
 
     /**
      * Add Tracks to a Playlist
+     * 
      * POST /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * https://developer.spotify.com/web-api/add-tracks-to-playlist/
      */
     interface AddTracksToPlaylistResponse extends PlaylistSnapshotResponse {}
 
     /**
      * Remove Tracks from a Playlist
+     * 
      * DELETE /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * https://developer.spotify.com/web-api/remove-tracks-playlist/
      */
     interface RemoveTracksFromPlaylistResponse extends PlaylistSnapshotResponse {}
 
     /**
      * Reorder a Playlist’s Tracks
+     * 
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * https://developer.spotify.com/web-api/reorder-playlists-tracks/
      */
     interface ReorderPlaylistTracksResponse extends PlaylistSnapshotResponse {}
 
     /**
      * Replace a Playlist’s Tracks
+     * 
      * PUT /v1/users/{user_id}/playlists/{playlist_id}/tracks
+     * https://developer.spotify.com/web-api/replace-playlists-tracks/
      */
     interface ReplacePlaylistTracksResponse extends VoidResponse {}
 
     /**
      * Check if Users Follow a Playlist
+     * 
      * GET /v1/users/{user_id}/playlists/{playlist_id}/followers/contains
+     * https://developer.spotify.com/web-api/check-user-following-playlist/
      */
     interface UsersFollowPlaylistReponse extends Array<boolean> {}
 
