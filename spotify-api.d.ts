@@ -361,6 +361,16 @@ declare namespace SpotifyApi {
     interface RecommendationsFromSeedsResponse extends RecommendationsObject {}
 
     /**
+     * Get available genre seeds
+     * 
+     * GET /v1/recommendations/available-genre-seeds
+     * https://developer.spotify.com/web-api/get-recommendations/#available-genre-seeds
+     */
+    interface AvailableGenreSeedsResponse {
+        "genres": string[]
+    }
+
+    /**
      * Search for an album
      * 
      * GET /v1/search?type=album
