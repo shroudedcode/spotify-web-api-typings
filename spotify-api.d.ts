@@ -40,6 +40,69 @@ declare namespace SpotifyApi {
         offset?: number;
     }
 
+    /**
+     * Object for use in Recommendations Based on Seeds.
+     * See: [Recommendations Based on Seeds](https://developer.spotify.com/web-api/get-recommendations/)
+     *
+     * @limit q Optional. The target size of the list of recommended tracks. For seeds with unusually small pools or when highly restrictive filtering is applied, it may be impossible to generate the requested number of recommended tracks. Debugging information for such cases is available in the response. Default: 20. Minimum: 1. Maximum: 100.
+     * @market q Optional. An ISO 3166-1 alpha-2 country code. Provide this parameter if you want to apply Track Relinking. Because min_*, max_* and target_* are applied to pools before relinking, the generated results may not precisely match the filters applied. Original, non-relinked tracks are available via the linked_from attribute of the relinked track response.
+     * @max_ q Optional. Multiple values. For each tunable track attribute, a hard ceiling on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, max_instrumentalness=0.35 would filter out most tracks that are likely to be instrumental.
+     * @min_ q Optional. Multiple values. For each tunable track attribute, a hard floor on the selected track attribute’s value can be provided. See tunable track attributes below for the list of available options. For example, min_tempo=140 would restrict results to only those tracks with a tempo of greater than 140 beats per minute.
+     * @seed_artists q A comma separated list of Spotify IDs for seed artists. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+     * @seed_genres q A comma separated list of any genres in the set of available genre seeds. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+     * @seed_tracks q A comma separated list of Spotify IDs for a seed track. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+     * @target_ q Optional. Multiple values. For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request target_energy=0.6 and target_danceability=0.8. All target values will be weighed equally in ranking results.
+     */
+    interface RecommendationsOptionsObject {
+        limit?: number,
+        market?: string,
+        max_acousticness?: number,
+        max_danceability?: number,
+        max_duration_ms?: number,
+        max_energy?: number,
+        max_instrumentalness?: number,
+        max_key?: number,
+        max_liveness?: number,
+        max_loudness?: number,
+        max_mode?: number,
+        max_popularity?: number,
+        max_speechiness?: number,
+        max_tempo?: number,
+        max_time_signature?: number,
+        max_valence?: number,
+        min_acousticness?: number,
+        min_danceability?: number,
+        min_duration_ms?: number,
+        min_energy?: number,
+        min_instrumentalness?: number,
+        min_key?: number,
+        min_liveness?: number,
+        min_loudness?: number,
+        min_mode?: number,
+        min_popularity?: number,
+        min_speechiness?: number,
+        min_tempo?: number,
+        min_time_signature?: number,
+        min_valence?: number,
+        seed_artists?: string,   // Comma separated string
+        seed_genres?: string,   // Comma separated string
+        seed_tracks?: string,   // Comma separated string
+        target_acousticness?: number
+        target_danceability?: number
+        target_duration_ms?: number
+        target_energy?: number
+        target_instrumentalness?: number
+        target_key?: number
+        target_liveness?: number
+        target_loudness?: number
+        target_mode?: number
+        target_popularity?: number
+        target_speechiness?: number
+        target_tempo?: number
+        target_time_signature?: number
+        target_valence?: number
+    }
+
 
     //
     // Responses from the Spotify Web API in the same order as in the API endpoint docs seen here:
