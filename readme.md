@@ -15,29 +15,25 @@ Still to be done:
 
 ## Usage
 
-To install it either download the spotify-api.d.ts file to your repository or **preferably** use tsd:
+Get the package with ```npm install @types/spotify-api``` or use obtain tsd from [definitelytyped.org](http://definitelytyped.org/tsd/), install it and run ```tsd install spotify-api``` from the root of your site.
 
-Obtain tsd from [definitelytyped.org](http://definitelytyped.org/tsd/), install it and run this command from the root of your site.
-
-```tsd install spotify-api```
+Alternatively, download ```index.d.ts``` from this repo.
 
 Then in your project, reference the file in the top of your ```.ts```:
 
-```/// <reference path="../typings/spotify-api/spotify-api.d.ts" />```
+```/// <reference path="../node_modules/@types/spotify-api/spotify-api.d.ts" />```
 
 (or what the path to the file is from your project...)
 
 ## Tests
 
-To test the package install tsc globally and run this command from the directory of the file: 
-
-```tsc --noImplicitAny spotify-api-tests.d.ts``` 
+To test the package install tsc globally and run ```tsc``` in this directory.
 
 This verifies that the typings in the ```spotify-api.d.ts``` module match the output from the Spotify API.
 
 
 ## Also check out 
 
-My typings for the ```spotify-web-api-js``` module by JMPerez, coming out shortly also on [DefinitelyTyped.org](http://definitelyTyped.org).
+My typings for the [spotify-web-api-js](https://github.com/JMPerez/spotify-web-api-js) package by JMPerez, which is integrated in the package.
 
 ## I hope it's useful to you. Feel free to make pull requests and raise issues.
