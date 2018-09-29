@@ -1,0 +1,8 @@
+{
+  "name": "@types/spotify-api",
+  "version": "0.0.0",
+  "description": "TypeScript definitions for The Spotify Web API (including changes March 29th 2016)",
+  "license": "MIT",
+  "author": "Niels Kristian Hansen Skovmand <https://github.com/skovmand>",
+  "main": ""
+}
