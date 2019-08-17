@@ -604,8 +604,6 @@ declare namespace SpotifyApi {
         external_ids: ExternalIdObject,
         genres: string[],
         popularity: number,
-        release_date: string,
-        release_date_precision: string,
         tracks: PagingObject<TrackObjectSimplified>,
     }
 
@@ -621,6 +619,14 @@ declare namespace SpotifyApi {
         id: string,
         images: ImageObject[],
         name: string,
+
+        // These two properties are on `AlbumObjectFull` according to the reference but have been moved apparently
+        release_date: string,
+        release_date_precision: string,
+
+        // This property is not documented
+        total_tracks: number,
+
         type: "album",
         uri: string
     }
